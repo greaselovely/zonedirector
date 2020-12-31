@@ -42,14 +42,14 @@ crontab : 	# ZoneDirector Guest Password Change-a-roo
 		0 0 * * * /home/zonedirector/zd_guestpass.sh
 
 cron -> zd_guestpass.sh -> zd_config.sh
-	|		          |
-	|		          |
-	|		          |
-	|		          |
-	|		          +---->config.log
-	|
-	|
-	+---->index.html (cat index.html | sed s/nonsense/$guestpsk/g > /var/www/html/index.html)
-	+---->guestpsk.txt
+	       |	         |
+	       |	         |
+	       |	         |
+	       |	         |
+	       |	         +---->config.log
+	       |
+	       |
+	       +---->index.html (cat index.html | sed s/nonsense/$guestpsk/g > /var/www/html/index.html)
+	       +---->guestpsk.txt
 			
 			
