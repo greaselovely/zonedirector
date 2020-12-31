@@ -6,6 +6,7 @@ PATH=$PATH:$LPATH
 wwwpath="/var/www/html"
 htmlfile="index.html"
 textfile="guestpsk.txt"
+logfile="config.log"
 
 charcnt="0"
 mincharcnt="9"
@@ -39,6 +40,6 @@ done
 echo "$guestpsk" > $LPATH/$textfile
 cat $LPATH/$htmlfile | sed s/nonsense/$guestpsk/g > $wwwpath/$htmlfile
 
-echo "$today" > "$LPATH/config.log"
+echo "$today" > "$LPATH/$logfile"
 
-$LPATH/zd_config.sh $user $password $host >> "$LPATH/config.log"
+$LPATH/zd_config.sh $user $password $host >> "$LPATH/$logfile"
