@@ -1,0 +1,55 @@
+
+I have had a few customers that just want to use a PSK for guest wireless instead of using onboarding methods.
+Seems that they don't want to have to approve people getting onto the guest network.  And I loved the idea of 
+being able to use DPSK from Ruckus, but the customers don't care.  And I refuse to just let them have a static PSK 
+written on a whiteboard in every conference room so I forced them to do it this way as a middle ground.  We'll
+just change the PSK on the guest wireless everyday and give them a way to see it quickly.  This is intended to only 
+be used internally.  If you use expose this to the inet, I don't want to hear about it.  Also, the password isn't complex.
+It's a day old password that should be easy for guests to use that will change in a day, so please no soapbox sermons 
+on password complexity and security best practices.  I am totally onboard if you change the way passwords are generated.
+I also put in just enough effort to make this work so if you find a better way to do this, I'd love to see and learn!  Not joking.
+
+Only used on Ubuntu, so change it to work with your stuff.  This is assuming a virgin machine:
+
+############
+
+1) Install expect
+2) Install Apache
+3) chown %username% /var/www/html
+4) git clone
+5) Add your company image and update index.html as needed for the graphic to display
+6) Update zd_guestpass.sh with your zonedirector username / password (base64 encoded) and zonedirector IP address
+7) Update zd_config.sh with the name of guest wlan
+8) Update zd_config.sh with the path of your guestpsk.txt file
+9) Test it.  
+	a) Recommend walking through the CLI manually to confirm all the commands in the expect script works.
+	b) See if the HTML page displays as needed.
+10) cron zd_guestpass.sh
+11) monitor config.log for any problems that show up.
+
+############
+
+
+This is the workflow that pulls a random word from the local dictionary to be used for the guest SSID on the wireless controller.
+
+If you install Apache, and chowned the /var/www/ folder for your user account, just view the webpage.
+If you didn't do this, then the script won't be able to move the password under Apache for display.
+If you don't want to do that, then modify to get the password to someone as you prefer.
+
+Example: The script is scheduled by cron and runs at midnight:
+
+crontab : 	# ZoneDirector Guest Password Change-a-roo
+			0 0 * * * /home/zonedirector/zd_guestpass.sh
+
+cron -> zd_guestpass.sh -> zd_config.sh
+			|		          |
+			|		          |
+			|		          |
+			|		          |
+			|		          +---->config.log
+			|
+			|
+			+---->index.html (cat index.html | sed s/nonsense/$guestpsk/g > /var/www/html/index.html)
+			+---->guestpsk.txt
+			
+			
