@@ -37,7 +37,7 @@ while [ $charcnt -lt $mincharcnt ]
 done
 
 echo "$guestpsk" > $LPATH/$textfile
-cat $LPATH/$htmlfile | sed s/nonsense/$guestpsk/g > $wwwpath/index.html
+cat $LPATH/$htmlfile | sed s/nonsense/$guestpsk/g > $wwwpath/$htmlfile
 
 echo "$today" > "$LPATH/config.log"
 
