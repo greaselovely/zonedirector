@@ -39,7 +39,7 @@ If you don't want to do that, then modify to get the password to someone as you 
 Example: The script is scheduled by cron and runs at midnight:
 
 crontab : 	# ZoneDirector Guest Password Change-a-roo
-			0 0 * * * /home/zonedirector/zd_guestpass.sh
+		0 0 * * * /home/zonedirector/zd_guestpass.sh
 
 cron -> zd_guestpass.sh -> zd_config.sh
 	|		          |
